@@ -3,10 +3,10 @@ from .models import Product, StockMovement
 from .serializers import ProductSerializer, StockMovementSerializer
 
 class ProductViewSet(viewsets.ModelViewSet):
-    queryset=Product.objects.all()
+    queryset=Product.objects.filter(is_active=True)
     serializer_class = ProductSerializer
     
 class StockMovementViewSet (viewsets.ModelViewSet):
-    query_Set=StockMovement.objetc.all()
-    serializer_class = StockMovement    
+    queryset=StockMovement.objects.all()
+    serializer_class = StockMovementSerializer    
     

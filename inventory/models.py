@@ -7,6 +7,7 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     minimum_stock = models.IntegerField(default=0)
+    is_active= models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     @property
@@ -37,7 +38,7 @@ class StockMovement (models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     
     def save(self,*args,**kwargs):
-        if self.movements == 'OUT':
+        if self.movement_type == 'OUT':
             if self.quantity>self.product.current_stock:
                 raise ValidationError ("No hay suficiente stock para esta salida")
         super().save(*args,**kwargs)    

@@ -6,13 +6,30 @@ class ProductSerializer(serializers.ModelSerializer):
     
     class Meta:
         model =Product
-        fields=['id','product','quantity','']
+        fields=['id','name','description','minimum_stock','is_active','created_at','current_stock']
         
 class StockMovementSerializer (serializers.ModelSerializer):
+    
+    def validate(self,attrs):
+        product= attrs.get('product')
+        quantity=attrs.get('quantity')
+        movement_type=attrs.get('movement_type')
+        
+        if product.is_active == False:
+            raise serializers.ValidationError("No se pueden registrar movimientos para productos inactivos")
+                
+        if movement_type=='OUT':
+            current_stock= product.current_stock
+            if quantity > current_stock:
+                raise serializers.ValidationError("La cantidad no puede ser mayor al stock")
+            
+        return attrs    
     
     class Meta:
         model = StockMovement
         fields=['id','product','quantity','movement_type','created_at']
+        
+        
                 
         
         
