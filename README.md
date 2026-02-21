@@ -59,7 +59,7 @@ Endpoints personalizados:
 ### 1. Clonar repositorio
 
 ```bash
-git clone <TU_REPO_URL>
+git clone <https://github.com/shuelgos/stock_flow>
 cd stockflow
 ```
 
