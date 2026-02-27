@@ -50,6 +50,27 @@ class ProductViewSet(viewsets.ModelViewSet):
         }
         
         return Response(data)
+    
+    @action (detail=True,methods=['get'])
+    def movements(self,request,pk=None):
+        
+        product= self.get_object()
+        movements=product.movements.all()
+        serializer= StockMovementSerializer(
+            movements,
+            many=True,
+            context={
+                'request':request
+            }
+        )
+        
+                
+        
+        
+        
+        
+        
+    
               
     
 class StockMovementViewSet (viewsets.ModelViewSet):
